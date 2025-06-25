@@ -43,7 +43,7 @@ $pdo->commit();
 
 $pdf = new FPDF('P','mm',array(80,200));
 $pdf->AddPage();
-$pdf->Image('assets/logo.png', 30, 5, 20);
+$pdf->Image('assets/LogoBlack.png', 30, 5, 20);
 $pdf->Ln(20);
 $pdf->SetFont('Arial','B',12);
 $pdf->Cell(60,6,"KALLI JAGUAR",0,1,'C');
