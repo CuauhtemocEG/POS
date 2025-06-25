@@ -21,7 +21,6 @@ foreach ($data as $row) {
     ];
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,16 +29,16 @@ foreach ($data as $row) {
 </head>
 <body>
 <div class="container mt-4">
-    <h3>Comandas del día</h3>
+    <h3>Comandas del Día</h3>
     <?php foreach ($comandas as $id => $comanda): ?>
-        <div class="card mb-2 shadow-sm">
+        <div class="card mb-3 shadow">
             <div class="card-header bg-dark text-white">
                 Mesa <?= $comanda['mesa'] ?> | Venta #<?= $id ?> | <?= $comanda['fecha'] ?>
             </div>
             <div class="card-body">
                 <ul>
                     <?php foreach ($comanda['productos'] as $prod): ?>
-                        <li><strong><?= $prod['cantidad'] ?></strong> x <?= $prod['nombre'] ?></li>
+                        <li><strong><?= $prod['cantidad'] ?></strong> × <?= $prod['nombre'] ?></li>
                     <?php endforeach; ?>
                 </ul>
             </div>
