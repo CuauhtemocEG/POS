@@ -71,3 +71,37 @@ function eliminarDelCarrito(index) {
     carrito.splice(index, 1);
     renderizarCarrito();
 }
+
+document.getElementById("formVenta").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    if (carrito.length === 0) {
+        alert("No hay productos en el carrito.");
+        return;
+    }
+
+    const mesaID = document.getElementById("mesaActual").value;
+    const metodoPago = document.getElementById("metodoPago").value;
+
+    fetch("finalizarVenta.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            mesaID: mesaID,
+            metodoPago: metodoPago,
+            carrito: carrito
+        })
+    })
+    .then(res => res.blob())
+    .then(blob => {
+        // Descargar PDF generado
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `ticket_mesa_${mesaID}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.location.href = "mesas.php";
+    });
+});
