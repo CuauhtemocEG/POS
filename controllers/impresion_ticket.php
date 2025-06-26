@@ -63,7 +63,7 @@ foreach ($productos as $prod) {
 $pdf->Ln(2);
 $pdf->SetFont('Arial','B',11);
 $pdf->Cell(45,7,'Total',0);
-$pdf->Cell(25,7,"$".number_format($total,2),0,1,'R');
+$pdf->Cell(25,7,"$".number_format($total,2),0,1,'C');
 
 $pdf->Ln(5);
 $pdf->SetFont('Arial','I',8);
