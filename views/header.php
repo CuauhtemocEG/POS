@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>POS Kalli Jaguar</title>
-  <link rel="icon" href="../assets/Logo.jgp" type="image/jpg">
+  <link rel="icon" href="../assets/Logo.jpg" type="image/jpg">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body>
