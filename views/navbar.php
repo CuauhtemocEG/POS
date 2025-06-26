@@ -11,5 +11,26 @@
       <li class="nav-item"><a class="nav-link" href="index.php?page=cocina">Cocina</a></li>
       <li class="nav-item"><a class="nav-link" href="index.php?page=bar">Bar</a></li>
     </ul>
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item">
+        <button id="fullscreen-btn" class="btn btn-outline-light" type="button" title="Pantalla completa">
+          <i class="bi bi-arrows-fullscreen"></i>
+        </button>
+      </li>
+    </ul>
   </div>
 </nav>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const fsBtn = document.getElementById('fullscreen-btn');
+    if (fsBtn) {
+      fsBtn.addEventListener('click', function() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen();
+        } else {
+          document.exitFullscreen();
+        }
+      });
+    }
+  });
+</script>
