@@ -60,7 +60,6 @@ $orden_id = $orden ? $orden['id'] : 0;
             <input type="hidden" name="mesa_id" value="<?= $mesa_id ?>">
             <button type="submit" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Abrir nueva orden</button>
         </form>
-        <a href="index.php?page=mesas" class="btn btn-secondary mt-3"><i class="bi bi-arrow-left"></i> Volver a Mesas</a>
     <?php endif; ?>
 </div>
 

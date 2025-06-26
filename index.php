@@ -14,8 +14,14 @@ switch ($page) {
     case 'cocina':
         include 'views/cocina.php';
         break;
+    case 'ordenes':
+        include 'views/ordenes.php';
+        break;
     case 'bar':
         include 'views/bar.php';
+        break;
+    case 'detalleOrder':
+        include 'views/orden_detalle.php';
         break;
     default:
         include 'views/mesas.php';
