@@ -10,7 +10,7 @@ $orden_id = $_GET['orden_id'] ?? 0;
 
 // Datos de la orden
 $stmt = $pdo->prepare(
-    "SELECT m.nombre AS mesa, o.id, o.creada_en 
+    "SELECT o.codigo, m.nombre AS mesa, o.id, o.creada_en 
      FROM ordenes o JOIN mesas m ON o.mesa_id = m.id WHERE o.id=?"
 );
 $stmt->execute([$orden_id]);
@@ -31,14 +31,14 @@ $pdf->AddPage();
 
 if (file_exists('../assets/img/LogoBlack.png')) {
     $pdf->Image('../assets/img/LogoBlack.png', 25, 5, 30);
-    $pdf->Ln(10);
+    $pdf->Ln(8);
 }
 
 $pdf->SetFont('Arial','B',12);
-$pdf->Cell(0,7,"POS Restaurante",0,1,'C');
+$pdf->Cell(0,7,"Kalli Jaguar",0,1,'C');
 $pdf->SetFont('Arial','',10);
 $pdf->Cell(0,5,"Mesa: ".$orden['mesa'],0,1,'C');
-$pdf->Cell(0,5,"Orden #: ".$orden['id'],0,1,'C');
+$pdf->Cell(0,5,"Orden #: ".$orden['codigo'],0,1,'C');
 $pdf->Cell(0,5,"Fecha: ".substr($orden['creada_en'],0,16),0,1,'C');
 $pdf->Ln(3);
 
@@ -46,22 +46,22 @@ $pdf->Cell(0,0,'','T');
 $pdf->Ln(2);
 
 $pdf->SetFont('Arial','B',10);
-$pdf->Cell(30,6,'Producto',0);
-$pdf->Cell(15,6,'Cant',0,0,'C');
+$pdf->Cell(25,6,'Producto',0);
+$pdf->Cell(10,6,'#',0,0,'C');
 $pdf->Cell(15,6,'Precio',0,0,'C');
-$pdf->Cell(20,6,'Subt.',0,1,'R');
+$pdf->Cell(15,6,'Subt.',0,1,'C');
 $pdf->SetFont('Arial','',10);
 $total = 0;
 foreach ($productos as $prod) {
     $subtotal = $prod['cantidad'] * $prod['precio'];
-    $pdf->Cell(30,6,utf8_decode($prod['nombre']),0);
-    $pdf->Cell(15,6,$prod['cantidad'],0,0,'C');
+    $pdf->Cell(25,6,utf8_decode($prod['nombre']),0);
+    $pdf->Cell(10,6,$prod['cantidad'],0,0,'C');
     $pdf->Cell(15,6,"$".number_format($prod['precio'],2),0,0,'C');
-    $pdf->Cell(20,6,"$".number_format($subtotal,2),0,1,'R');
+    $pdf->Cell(15,6,"$".number_format($subtotal,2),0,1,'C');
     $total += $subtotal;
 }
 $pdf->Ln(2);
-$pdf->SetFont('Arial','B',12);
+$pdf->SetFont('Arial','B',11);
 $pdf->Cell(45,7,'Total',0);
 $pdf->Cell(25,7,"$".number_format($total,2),0,1,'R');
 
