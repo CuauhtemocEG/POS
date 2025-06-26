@@ -89,9 +89,9 @@ function cargarCategorias() {
     fetch('controllers/categorias.php')
     .then(r => r.json())
     .then(data => {
-        let html = '';
-        data.forEach((cat, i) => {
-            html += `<button class='pos-category-btn${i===0 ? " active" : ""}' data-cat="${cat.id}">${cat.nombre}</button>`;
+        let html = `<button class='pos-category-btn active' data-cat="0">Todos</button>`;
+        data.forEach(cat => {
+            html += `<button class='pos-category-btn' data-cat="${cat.id}">${cat.nombre}</button>`;
         });
         document.getElementById('categorias').innerHTML = html;
         document.querySelectorAll('.pos-category-btn').forEach(btn => {
@@ -259,17 +259,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // Buscador
     if(document.getElementById('buscador')){
         document.getElementById('buscador').addEventListener('input', function() {
-            let cat = document.querySelector('.pos-category-btn.active')?.getAttribute('data-cat') || '';
-            cargarProductos(cat, this.value);
+            // Activa la categoría "Todos"
+            document.querySelectorAll('.pos-category-btn').forEach(btn => btn.classList.remove('active'));
+            let todosBtn = document.querySelector('.pos-category-btn[data-cat="0"]');
+            if (todosBtn) todosBtn.classList.add('active');
+            cargarProductos(0, this.value); // 0 para todos
         });
     }
 });
 
-// Inicialización
+// Inicialización de categorías y productos
 cargarCategorias();
 setTimeout(()=> {
-    let cat = document.querySelector('.pos-category-btn.active')?.getAttribute('data-cat') || '';
-    cargarProductos(cat, '');
+    cargarProductos(0, ''); // Muestra todos al cargar
 }, 350);
 cargarOrden();
 </script>

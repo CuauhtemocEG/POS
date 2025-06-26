@@ -24,8 +24,9 @@ if (isset($_POST['crear'])) {
     $descripcion = $_POST['descripcion'];
     $categoria = $_POST['categoria'];
     $imagen = guardarImagen($_FILES['imagen']);
-    $pdo->prepare("INSERT INTO productos (nombre, precio, descripcion, categoria, imagen) VALUES (?, ?, ?, ?, ?)")
-        ->execute([$nombre, $precio, $descripcion, $categoria, $imagen]);
+    $type = $_POST['type'];
+    $pdo->prepare("INSERT INTO productos (nombre, precio, descripcion, categoria, imagen, type) VALUES (?, ?, ?, ?, ?, ?)")
+        ->execute([$nombre, $precio, $descripcion, $categoria, $imagen, $type]);
     header("Location: ../index.php?page=productos");
     exit;
 }
@@ -38,15 +39,16 @@ if (isset($_POST['editar'])) {
     $descripcion = $_POST['descripcion'];
     $categoria = $_POST['categoria'];
     $imagen = null;
+    $type = $_POST['type'];
     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
         $imagen = guardarImagen($_FILES['imagen']);
     }
     if ($imagen) {
-        $pdo->prepare("UPDATE productos SET nombre=?, precio=?, descripcion=?, categoria=?, imagen=? WHERE id=?")
-            ->execute([$nombre, $precio, $descripcion, $categoria, $imagen, $id]);
+        $pdo->prepare("UPDATE productos SET nombre=?, precio=?, descripcion=?, categoria=?, imagen=?, type=?WHERE id=?")
+            ->execute([$nombre, $precio, $descripcion, $categoria, $imagen, $type, $id]);
     } else {
-        $pdo->prepare("UPDATE productos SET nombre=?, precio=?, descripcion=?, categoria=? WHERE id=?")
-            ->execute([$nombre, $precio, $descripcion, $categoria, $id]);
+        $pdo->prepare("UPDATE productos SET nombre=?, precio=?, descripcion=?, categoria=?, type=? WHERE id=?")
+            ->execute([$nombre, $precio, $descripcion, $categoria, $type, $id]);
     }
     header("Location: ../index.php?page=productos");
     exit;

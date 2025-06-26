@@ -32,9 +32,19 @@ $productos = $pdo->query("SELECT * FROM productos")->fetchAll();
     </div>
     <div class="col-md-2">
       <select name="categoria" class="form-control" required>
+        <option value="">Tipo</option>
+        <option value="comidas" <?= $editando && $producto['categoria'] == 'comidas' ? 'selected' : '' ?>>Comidas</option>
+        <option value="bebidas" <?= $editando && $producto['categoria'] == 'bebidas' ? 'selected' : '' ?>>Bebidas</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <select name="type" class="form-control" required>
         <option value="">Categoría</option>
-        <option value="comidas" <?= $editando && $producto['categoria']=='comidas' ? 'selected' : '' ?>>Comidas</option>
-        <option value="bebidas" <?= $editando && $producto['categoria']=='bebidas' ? 'selected' : '' ?>>Bebidas</option>
+        <option value="1" <?= $editando && $producto['type'] == '1' ? 'selected' : '' ?>>Desayunos</option>
+        <option value="2" <?= $editando && $producto['type'] == '2' ? 'selected' : '' ?>>Antojitos</option>
+        <option value="7" <?= $editando && $producto['type'] == '7' ? 'selected' : '' ?>>Extras</option>
+        <option value="8" <?= $editando && $producto['type'] == '8' ? 'selected' : '' ?>>Bebidas Frías</option>
+        <option value="9" <?= $editando && $producto['type'] == '9' ? 'selected' : '' ?>>Bebidas Calientes</option>
       </select>
     </div>
     <div class="col-md-2">
@@ -43,6 +53,8 @@ $productos = $pdo->query("SELECT * FROM productos")->fetchAll();
         <img src="assets/img/<?= htmlspecialchars($producto['imagen']) ?>" alt="Imagen" width="50">
       <?php endif; ?>
     </div>
+  </div>
+  <div class="row g-2 mt-2">
     <div class="col-md-2">
       <?php if ($editando): ?>
         <button type="submit" name="editar" class="btn btn-warning w-100">Actualizar</button>
