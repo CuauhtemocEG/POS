@@ -14,7 +14,7 @@ $mesas = $pdo->query("
 </head>
 
 <div class="container py-3">
-  <h1 class="mb-4 text-center">Kalli Jaguar Dorada</h1>
+  <h1 class="mb-2 text-center">Kalli Jaguar Dorada</h1>
   <form method="post" action="controllers/crear_mesa.php" class="row g-2 mt-5 justify-content-center">
     <div class="col-md-6">
       <input type="text" name="nombre" class="form-control" placeholder="Nombre nueva mesa" required>
