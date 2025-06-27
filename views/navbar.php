@@ -115,4 +115,3 @@
       });
     });
   </script>
-  <div class="main-content-wrapper">
