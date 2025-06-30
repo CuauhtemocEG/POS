@@ -100,7 +100,7 @@ $total = $subtotal - $descuento + $impuestos;
         </tfoot>
       </table>
     </div>
-    <a href="exportar_orden_pdf.php?id=<?= $orden['id'] ?>" target="_blank" class="btn btn-outline-danger mb-3">
+    <a href="controllers/exportar_order_pdf.php?id=<?= $orden['id'] ?>" class="btn btn-outline-danger mb-3" target="_blank">
       <i class="bi bi-file-pdf"></i> Exportar PDF
     </a>
     <a href="index.php?page=ordenes" class="btn btn-secondary mb-3">Volver a listado</a>
