@@ -1,5 +1,5 @@
 <?php
-ini_set('memory_limit', '256M'); // o 512M si es necesario
+ini_set('memory_limit', '256M');
 ob_start();
 require_once '../conexion.php';
 require_once '../fpdf/fpdf.php';
@@ -24,6 +24,16 @@ $detalles = $pdo->prepare(
 );
 $detalles->execute([$orden_id]);
 $productos = $detalles->fetchAll();
+
+// Función para truncar texto según ancho de celda
+function fitCellText($pdf, $width, $text, $font='Arial', $style='', $size=10) {
+    $pdf->SetFont($font, $style, $size);
+    if($pdf->GetStringWidth($text) <= $width) return $text;
+    while($pdf->GetStringWidth($text.'...') > $width && mb_strlen($text) > 0) {
+        $text = mb_substr($text, 0, -1);
+    }
+    return $text.'...';
+}
 
 // Ticket PDF
 $pdf = new FPDF('P','mm',[80,150]);
@@ -54,7 +64,8 @@ $pdf->SetFont('Arial','',10);
 $total = 0;
 foreach ($productos as $prod) {
     $subtotal = $prod['cantidad'] * $prod['precio'];
-    $pdf->Cell(25,6,utf8_decode($prod['nombre']),0);
+    $nombre_trunc = fitCellText($pdf, 25, utf8_decode($prod['nombre']));
+    $pdf->Cell(25,6,$nombre_trunc,0);
     $pdf->Cell(10,6,$prod['cantidad'],0,0,'C');
     $pdf->Cell(15,6,"$".number_format($prod['precio'],2),0,0,'C');
     $pdf->Cell(15,6,"$".number_format($subtotal,2),0,1,'C');
