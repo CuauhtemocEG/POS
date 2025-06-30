@@ -3,6 +3,9 @@ ini_set('memory_limit', '256M');
 ob_start();
 require_once '../conexion.php';
 require_once '../fpdf/fpdf.php';
+require_once '../vendor/autoload.php';
+
+use Picqer\Barcode\BarcodeGeneratorPNG;
 
 $pdo = conexion();
 
@@ -76,7 +79,18 @@ $pdf->SetFont('Arial','B',11);
 $pdf->Cell(40,7,'Total',0);
 $pdf->Cell(25,7,"$".number_format($total,2),0,1,'R');
 
-$pdf->Ln(5);
+if (!empty($orden['codigo'])) {
+    $barcodePath = sys_get_temp_dir() . "/barcode_" . $orden['codigo'] . ".png";
+    $generator = new BarcodeGeneratorPNG();
+    file_put_contents($barcodePath, $generator->getBarcode($orden['codigo'], $generator::TYPE_CODE_128));
+    $pdf->Ln(2);
+    $pdf->SetFont('Arial','',9);
+    $pdf->Cell(0, 4, utf8_decode('Código de Orden:'), 0, 1, 'C');
+    $pdf->Image($barcodePath, 15, $pdf->GetY(), 50, 13);
+    $pdf->Ln(15);
+    @unlink($barcodePath);
+}
+
 $pdf->SetFont('Arial','I',8);
 $pdf->Cell(0,4,utf8_decode('¡Gracias por su visita!'),0,1,'C');
 ob_clean(); 
