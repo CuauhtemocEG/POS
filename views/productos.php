@@ -45,6 +45,8 @@ $productos = $pdo->query("SELECT * FROM productos")->fetchAll();
         <option value="7" <?= $editando && $producto['type'] == '7' ? 'selected' : '' ?>>Extras</option>
         <option value="8" <?= $editando && $producto['type'] == '8' ? 'selected' : '' ?>>Bebidas Frías</option>
         <option value="9" <?= $editando && $producto['type'] == '9' ? 'selected' : '' ?>>Bebidas Calientes</option>
+        <option value="10" <?= $editando && $producto['type'] == '10' ? 'selected' : '' ?>>Pozole</option>
+        <option value="11" <?= $editando && $producto['type'] == '11' ? 'selected' : '' ?>>Postres</option>
       </select>
     </div>
     <div class="col-md-2">
