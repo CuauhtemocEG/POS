@@ -51,7 +51,7 @@
     }
 
     .main-content-wrapper {
-      max-width: 1200px;
+      max-width: 95%;
       margin: 2rem auto 1rem auto;
       background: #fff;
       border-radius: 1.3rem;
