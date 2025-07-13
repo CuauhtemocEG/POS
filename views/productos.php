@@ -205,7 +205,7 @@ $productos = $pdo->query("SELECT * FROM productos")->fetchAll();
     let form = this;
     let formData = new FormData(form);
     formData.append('crear', '1');
-    fetch('../controllers/productos_crud.php', {
+    fetch('controllers/productos_crud.php', {
         method: 'POST',
         body: formData
       })
@@ -228,7 +228,7 @@ $productos = $pdo->query("SELECT * FROM productos")->fetchAll();
     let form = this;
     let formData = new FormData(form);
     formData.append('editar', '1');
-    fetch('../controllers/productos_crud.php', {
+    fetch('controllers/productos_crud.php', {
         method: 'POST',
         body: formData
       })
@@ -259,7 +259,7 @@ $productos = $pdo->query("SELECT * FROM productos")->fetchAll();
         cancelButtonText: 'Cancelar'
       }).then(result => {
         if (result.isConfirmed) {
-          fetch('../controllers/productos_crud.php?eliminar=' + pid)
+          fetch('controllers/productos_crud.php?eliminar=' + pid)
             .then(r => r.json())
             .then(resp => {
               if (resp.status === 'ok') {
