@@ -1,117 +1,91 @@
-  <style>
-    body {
-      background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
-      min-height: 100vh;
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  body, .font-montserrat {
+    font-family: 'Montserrat', sans-serif !important;
+  }
+  .navbar-link {
+    text-decoration: none !important;
+  }
+  @media (max-width: 768px) {
+    #navbar-solid-bg ul {
+      overflow-x: auto;
+      white-space: nowrap;
+      flex-wrap: nowrap;
     }
-
-    .navbar-custom {
-      background: linear-gradient(90deg, rgb(8, 13, 22) 0%, rgb(119, 68, 1) 100%);
-      box-shadow: 0 4px 18px -2px #0001;
-      border-radius: 0 0 1rem 1rem;
-      padding-top: .4rem;
-      padding-bottom: .4rem;
+    #navbar-solid-bg li {
+      display: inline-block;
+      float: none;
     }
+  }
+</style>
 
-    .navbar-brand {
-      font-weight: 700;
-      font-size: 1.35rem;
-      letter-spacing: 1px;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .navbar-nav .nav-link {
-      font-size: 1.13rem;
-      border-radius: .45rem;
-      margin-right: 0.4rem;
-      transition: background .17s, color .17s;
-      color: #f1f1f1 !important;
-    }
-
-    .navbar-nav .nav-link.active,
-    .navbar-nav .nav-link:focus,
-    .navbar-nav .nav-link:hover {
-      background: rgba(255, 255, 255, 0.13);
-      color: #fff !important;
-    }
-
-    .navbar-user {
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-    }
-
-    .navbar-user .avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #fff3;
-    }
-
-    .main-content-wrapper {
-      max-width: 95%;
-      margin: 2rem auto 1rem auto;
-      background: #fff;
-      border-radius: 1.3rem;
-      box-shadow: 0 8px 32px -7px #004b7080;
-      padding: 2.5rem 2rem 1.5rem 2rem;
-    }
-
-    @media (max-width: 900px) {
-      .main-content-wrapper {
-        padding: 1.2rem 0.2rem;
-        border-radius: 0.7rem;
-      }
-
-      .navbar-custom {
-        border-radius: 0;
-      }
-    }
-  </style>
-  </head>
-  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom mb-4">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="index.php">
-        <i class="bi bi-cash-stack fs-3"></i> POS Kalli Jaguar
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
+<nav class="border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700 font-montserrat">
+  <div class="max-w-5xl flex flex-wrap items-center justify-between mx-auto p-2">
+    <a href="#" class="flex items-center space-x-2 navbar-link">
+      <img src="https://flowbite.com/docs/images/logo.svg" class="h-7" alt="Logo" />
+      <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">POS Kalli Jaguar</span>
+    </a>
+    <div class="flex items-center space-x-1">
+      <button data-collapse-toggle="navbar-solid-bg" type="button"
+        class="inline-flex items-center p-2 w-9 h-9 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        aria-controls="navbar-solid-bg" aria-expanded="false"
+      >
+        <span class="sr-only">Abrir menú principal</span>
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M1 1h15M1 7h15M1 13h15"/>
+        </svg>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="index.php?page=mesas"><i class="bi bi-grid-3x3-gap"></i> Mesas</a></li>
-          <li class="nav-item"><a class="nav-link" href="index.php?page=ordenes"><i class="bi bi-list-check"></i> Ordenes</a></li>
-          <li class="nav-item"><a class="nav-link" href="index.php?page=productos"><i class="bi bi-box-seam"></i> Productos</a></li>
-          <li class="nav-item"><a class="nav-link" href="index.php?page=cocina"><i class="bi bi-egg-fried"></i> Cocina</a></li>
-          <li class="nav-item"><a class="nav-link" href="index.php?page=bar"><i class="bi bi-cup-straw"></i> Bar</a></li>
-        </ul>
-        <div class="navbar-user ms-auto">
-          <button id="fullscreen-btn" class="btn btn-outline-light border-0" type="button" title="Pantalla completa">
-            <i class="bi bi-arrows-fullscreen fs-5"></i>
-          </button>
-        </div>
-      </div>
     </div>
-  </nav>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const fsBtn = document.getElementById('fullscreen-btn');
-      if (fsBtn) {
-        fsBtn.addEventListener('click', function() {
-          if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen();
-          } else {
-            document.exitFullscreen();
-          }
-        });
-      }
-
-      document.querySelectorAll('.nav-link').forEach(link => {
-        if (location.href.includes(link.getAttribute('href'))) {
-          link.classList.add('active');
-        }
-      });
-    });
-  </script>
+    <div class="hidden w-full md:block md:w-auto" id="navbar-solid-bg">
+      <ul class="flex flex-col font-medium mt-2 rounded-lg bg-gray-50 md:space-x-4 md:flex-row md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700 sm:text-sm text-base">
+        <li>
+          <a href="index.php?page=mesas" class="navbar-link block py-2 px-3 md:p-0 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent" aria-current="page">Mesas</a>
+        </li>
+        <li>
+          <a href="index.php?page=ordenes" class="navbar-link block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Ordenes</a>
+        </li>
+        <li>
+          <a href="index.php?page=productos" class="navbar-link block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Catalogo</a>
+        </li>
+        <li>
+          <a href="index.php?page=cocina" class="navbar-link block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Cocina</a>
+        </li>
+        <li>
+          <a href="index.php?page=bar" class="navbar-link block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Bebidas</a>
+        </li>
+      </ul>
+    </div>
+    <button onclick="toggleFullScreen()" type="button"
+        class="inline-flex items-center p-2 w-9 h-9 justify-center text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        title="Pantalla completa"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M8 3H5a2 2 0 0 0-2 2v3m0 8v3a2 2 0 0 0 2 2h3m8-16h3a2 2 0 0 1 2 2v3m0 8v3a2 2 0 0 1-2 2h-3">
+          </path>
+        </svg>
+        <span class="sr-only">Pantalla completa</span>
+      </button>
+  </div>
+</nav>
+<script>
+function toggleFullScreen() {
+  if (
+    !document.fullscreenElement &&
+    !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement
+  ) {
+    var d = document.documentElement;
+    if (d.requestFullscreen) d.requestFullscreen();
+    else if (d.mozRequestFullScreen) d.mozRequestFullScreen();
+    else if (d.webkitRequestFullscreen) d.webkitRequestFullscreen();
+    else if (d.msRequestFullscreen) d.msRequestFullscreen();
+  } else {
+    if (document.exitFullscreen) document.exitFullscreen();
+    else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
+    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+    else if (document.msExitFullscreen) document.msExitFullscreen();
+  }
+}
+</script>
