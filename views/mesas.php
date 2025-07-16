@@ -15,7 +15,7 @@ $mesas = $pdo->query("
     <input type="text" name="nombre" class="w-full md:w-1/2 rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:text-white" placeholder="Nombre nueva mesa" required>
     <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-lg transition">Agregar Mesa</button>
   </form>
-  <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
     <?php foreach ($mesas as $mesa):
       if ($mesa['orden_abierta'] > 0) {
         $estado = 'ocupada';
@@ -30,7 +30,7 @@ $mesas = $pdo->query("
       }
     ?>
       <div class="cursor-pointer transition hover:shadow-xl border-2 <?= $cardClass ?> rounded-xl p-5 flex flex-col justify-between bg-white dark:bg-gray-800"
-           onclick="window.location='index.php?page=mesa&id=<?= $mesa['id'] ?>'">
+        onclick="window.location='index.php?page=mesa&id=<?= $mesa['id'] ?>'">
         <div>
           <div class="text-xl font-semibold text-gray-700 dark:text-white mb-2">
             <?= htmlspecialchars($mesa['nombre']) ?>
@@ -43,7 +43,7 @@ $mesas = $pdo->query("
           <div class="text-gray-500 dark:text-gray-300 text-sm mb-3"><?= htmlspecialchars($mesa['descripcion'] ?? '') ?></div>
         </div>
         <a href="index.php?page=mesa&id=<?= $mesa['id'] ?>"
-           class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium text-center mt-2 transition mesa-btn">
+          class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium text-center mt-2 transition mesa-btn">
           <?= $btnText ?>
         </a>
       </div>
