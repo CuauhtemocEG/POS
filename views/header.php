@@ -10,6 +10,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
-<body>
+<body class="bg-gradient-to-br from-blue-100 via-yellow-50 to-blue-50 min-h-screen">
   <?php include 'navbar.php'; ?>
-  <div class="main-content-wrapper">
+  <div class="max-w-4xl mx-auto mt-8 mb-6 bg-white rounded-2xl shadow-lg px-4 py-6 sm:px-8 sm:py-8">
