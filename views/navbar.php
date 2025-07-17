@@ -12,7 +12,7 @@
   <div class="max-w-5xl flex flex-wrap items-center justify-between mx-auto p-2">
     <a href="#" class="flex items-center space-x-2 navbar-link">
       <img src="../assets/img/kalliblanco.png" class="h-7" alt="Logo" />
-      <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">POS Kalli Jaguar</span>
+      <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">POS System</span>
     </a>
     <div class="flex items-center space-x-1">
       <button id="navbar-toggle" type="button"
