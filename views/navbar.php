@@ -11,7 +11,7 @@
 <nav class="border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700 font-montserrat">
   <div class="max-w-5xl flex flex-wrap items-center justify-between mx-auto p-2">
     <a href="#" class="flex items-center space-x-2 navbar-link">
-      <img src="../assets/img/Logo.jpg" class="h-7" alt="Logo" />
+      <img src="../assets/img/kalliblanco.png" class="h-7" alt="Logo" />
       <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">POS Kalli Jaguar</span>
     </a>
     <div class="flex items-center space-x-1">
