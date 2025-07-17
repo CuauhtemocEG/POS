@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json');
 require_once '../conexion.php';
 
 $pdo = conexion();
@@ -17,55 +18,88 @@ function guardarImagen($archivo) {
     return null;
 }
 
-// Alta
 if (isset($_POST['crear'])) {
-    $nombre = $_POST['nombre'];
-    $precio = $_POST['precio'];
-    $descripcion = $_POST['descripcion'];
-    $categoria = $_POST['categoria'];
+    $nombre = trim($_POST['nombre'] ?? '');
+    $precio = floatval($_POST['precio'] ?? 0);
+    $descripcion = trim($_POST['descripcion'] ?? '');
+    $categoria = trim($_POST['categoria'] ?? '');
+    $type = trim($_POST['type'] ?? '');
+
+    if ($nombre === '' || $precio <= 0 || $categoria === '' || $type === '' || !isset($_FILES['imagen'])) {
+        echo json_encode(['status'=>'error','msg'=>'Todos los campos obligatorios']);
+        exit;
+    }
+
     $imagen = guardarImagen($_FILES['imagen']);
-    $type = $_POST['type'];
-    $pdo->prepare("INSERT INTO productos (nombre, precio, descripcion, categoria, imagen, type) VALUES (?, ?, ?, ?, ?, ?)")
+    if (!$imagen) {
+        echo json_encode(['status'=>'error','msg'=>'Imagen inválida o no subida']);
+        exit;
+    }
+
+    $ok = $pdo->prepare("INSERT INTO productos (nombre, precio, descripcion, categoria, imagen, type) VALUES (?, ?, ?, ?, ?, ?)")
         ->execute([$nombre, $precio, $descripcion, $categoria, $imagen, $type]);
-    header("Location: ../index.php?page=productos");
+
+    echo json_encode([
+        'status' => $ok ? 'ok' : 'error',
+        'msg' => $ok ? 'Producto agregado.' : 'No se pudo agregar'
+    ]);
     exit;
 }
 
-// Edición
 if (isset($_POST['editar'])) {
-    $id = $_POST['id'];
-    $nombre = $_POST['nombre'];
-    $precio = $_POST['precio'];
-    $descripcion = $_POST['descripcion'];
-    $categoria = $_POST['categoria'];
+    $id = intval($_POST['id'] ?? 0);
+    $nombre = trim($_POST['nombre'] ?? '');
+    $precio = floatval($_POST['precio'] ?? 0);
+    $descripcion = trim($_POST['descripcion'] ?? '');
+    $categoria = trim($_POST['categoria'] ?? '');
+    $type = trim($_POST['type'] ?? '');
+
+    if (!$id || $nombre === '' || $precio <= 0 || $categoria === '' || $type === '') {
+        echo json_encode(['status'=>'error','msg'=>'Todos los campos obligatorios']);
+        exit;
+    }
+
     $imagen = null;
-    $type = $_POST['type'];
     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
         $imagen = guardarImagen($_FILES['imagen']);
     }
+
     if ($imagen) {
-        $pdo->prepare("UPDATE productos SET nombre=?, precio=?, descripcion=?, categoria=?, imagen=?, type=?WHERE id=?")
-            ->execute([$nombre, $precio, $descripcion, $categoria, $imagen, $type, $id]);
+        $stmt = $pdo->prepare("SELECT imagen FROM productos WHERE id=?");
+        $stmt->execute([$id]);
+        $imgOld = $stmt->fetchColumn();
+        if ($imgOld && file_exists("../assets/img/$imgOld")) {
+            unlink("../assets/img/$imgOld");
+        }
+        $sql = "UPDATE productos SET nombre=?, precio=?, descripcion=?, categoria=?, imagen=?, type=? WHERE id=?";
+        $params = [$nombre, $precio, $descripcion, $categoria, $imagen, $type, $id];
     } else {
-        $pdo->prepare("UPDATE productos SET nombre=?, precio=?, descripcion=?, categoria=?, type=? WHERE id=?")
-            ->execute([$nombre, $precio, $descripcion, $categoria, $type, $id]);
+        $sql = "UPDATE productos SET nombre=?, precio=?, descripcion=?, categoria=?, type=? WHERE id=?";
+        $params = [$nombre, $precio, $descripcion, $categoria, $type, $id];
     }
-    header("Location: ../index.php?page=productos");
+    $ok = $pdo->prepare($sql)->execute($params);
+
+    echo json_encode([
+        'status' => $ok ? 'ok' : 'error',
+        'msg' => $ok ? 'Producto actualizado.' : 'No se pudo actualizar'
+    ]);
     exit;
 }
 
-// Eliminación
 if (isset($_GET['eliminar'])) {
-    $id = $_GET['eliminar'];
-    // Borra la imagen del producto
+    $id = intval($_GET['eliminar']);
     $stmt = $pdo->prepare("SELECT imagen FROM productos WHERE id=?");
     $stmt->execute([$id]);
     $img = $stmt->fetchColumn();
     if ($img && file_exists("../assets/img/$img")) {
         unlink("../assets/img/$img");
     }
-    $pdo->prepare("DELETE FROM productos WHERE id=?")->execute([$id]);
-    header("Location: ../index.php?page=productos");
+    $ok = $pdo->prepare("DELETE FROM productos WHERE id=?")->execute([$id]);
+    echo json_encode([
+        'status' => $ok ? 'ok' : 'error',
+        'msg' => $ok ? 'Producto eliminado.' : 'No se pudo eliminar'
+    ]);
     exit;
 }
-?>
+
+echo json_encode(['status'=>'error','msg'=>'Petición inválida']);
