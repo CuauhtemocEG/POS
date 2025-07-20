@@ -10,7 +10,7 @@ $mesas = $pdo->query("
 ?>
 
 <div class="max-w-4xl mx-auto py-6 px-4">
-  <h1 class="mb-4 text-center text-2xl md:text-3xl font-bold text-gray-800 dark:text-black">Kalli Jaguar Dorada</h1>
+  <h1 class="mb-4 text-center text-2xl md:text-3xl font-bold text-gray-800 dark:text-white">Kalli Jaguar Dorada</h1>
   <form method="post" action="controllers/crear_mesa.php" class="flex flex-col md:flex-row items-center gap-3 justify-center mt-6">
     <input type="text" name="nombre" class="w-full md:w-1/2 rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:text-white" placeholder="Nombre nueva mesa" required>
     <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-lg transition">Agregar Mesa</button>
