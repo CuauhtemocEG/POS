@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo API POS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body class="bg-gray-100 min-h-screen py-8">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">
+                <i class="bi bi-api"></i> Demo API POS
+            </h1>
+            <p class="text-gray-600 mb-4">
+                Demostración de la nueva API REST integrada en el sistema POS.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <button onclick="loadMesas()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition duration-200">
+                    <i class="bi bi-table"></i> Cargar Mesas
+                </button>
+                <button onclick="loadProductos()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition duration-200">
+                    <i class="bi bi-box"></i> Cargar Productos
+                </button>
+                <button onclick="loadOrdenes()" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded transition duration-200">
+                    <i class="bi bi-receipt"></i> Cargar Órdenes
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <button onclick="loadCategorias()" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded transition duration-200">
+                    <i class="bi bi-tags"></i> Cargar Categorías
+                </button>
+                <button onclick="loadEstadisticas()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition duration-200">
+                    <i class="bi bi-graph-up"></i> Cargar Estadísticas
+                </button>
+            </div>
+        </div>
+
+        <!-- Área para mostrar resultados -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Columna 1: Datos -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">
+                    <i class="bi bi-database"></i> Datos de la API
+                </h2>
+                <div id="apiData" class="bg-gray-50 rounded p-4 overflow-auto max-h-96">
+                    <p class="text-gray-500">Haz clic en un botón para cargar datos...</p>
+                </div>
+            </div>
+            
+            <!-- Columna 2: Información y ejemplos -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">
+                    <i class="bi bi-info-circle"></i> Información de la API
+                </h2>
+                <div id="apiInfo" class="space-y-4">
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
+                        <h3 class="font-semibold text-blue-800">URL Base</h3>
+                        <code class="text-sm text-blue-600">/api/</code>
+                    </div>
+                    
+                    <div class="bg-green-50 border-l-4 border-green-400 p-4">
+                        <h3 class="font-semibold text-green-800">Métodos Soportados</h3>
+                        <div class="text-sm text-green-600 space-x-2">
+                            <span class="bg-green-200 px-2 py-1 rounded">GET</span>
+                            <span class="bg-blue-200 px-2 py-1 rounded">POST</span>
+                            <span class="bg-yellow-200 px-2 py-1 rounded">PUT</span>
+                            <span class="bg-red-200 px-2 py-1 rounded">DELETE</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                        <h3 class="font-semibold text-yellow-800">Endpoints Principales</h3>
+                        <ul class="text-sm text-yellow-700 mt-2 space-y-1">
+                            <li><code>/api/mesas</code> - Gestión de mesas</li>
+                            <li><code>/api/productos</code> - Gestión de productos</li>
+                            <li><code>/api/ordenes</code> - Gestión de órdenes</li>
+                            <li><code>/api/categorias</code> - Categorías</li>
+                            <li><code>/api/estadisticas</code> - Estadísticas</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de ejemplos de código -->
+        <div class="bg-white rounded-lg shadow-md p-6 mt-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">
+                <i class="bi bi-code-slash"></i> Ejemplos de Código JavaScript
+            </h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="font-semibold text-gray-700 mb-2">Obtener Datos (GET)</h3>
+                    <pre class="bg-gray-900 text-green-400 p-4 rounded text-sm overflow-x-auto"><code>// Obtener todas las mesas
+fetch('/api/mesas')
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      console.log(data.data);
+    }
+  });</code></pre>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-gray-700 mb-2">Crear Datos (POST)</h3>
+                    <pre class="bg-gray-900 text-green-400 p-4 rounded text-sm overflow-x-auto"><code>// Crear nueva mesa
+fetch('/api/mesas', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    nombre: 'Mesa VIP'
+  })
+})
+.then(response => response.json())
+.then(data => console.log(data));</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = '/api';
+        
+        async function apiCall(endpoint, options = {}) {
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    },
+                    ...options
+                });
+                
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error en API:', error);
+                return { success: false, error: error.message };
+            }
+        }
+        
+        function displayData(data, title) {
+            const apiDataDiv = document.getElementById('apiData');
+            
+            let html = `<h3 class="font-semibold text-gray-800 mb-2">${title}</h3>`;
+            
+            if (data.success) {
+                html += `<div class="text-green-600 mb-2">✅ Éxito</div>`;
+                html += `<pre class="bg-gray-800 text-green-400 p-3 rounded text-xs overflow-auto">${JSON.stringify(data, null, 2)}</pre>`;
+            } else {
+                html += `<div class="text-red-600 mb-2">❌ Error: ${data.error}</div>`;
+                html += `<pre class="bg-gray-800 text-red-400 p-3 rounded text-xs overflow-auto">${JSON.stringify(data, null, 2)}</pre>`;
+            }
+            
+            apiDataDiv.innerHTML = html;
+        }
+        
+        async function loadMesas() {
+            const data = await apiCall('/mesas');
+            displayData(data, 'Mesas');
+        }
+        
+        async function loadProductos() {
+            const data = await apiCall('/productos?page=1&limit=5');
+            displayData(data, 'Productos (Paginado)');
+        }
+        
+        async function loadOrdenes() {
+            const data = await apiCall('/ordenes');
+            displayData(data, 'Órdenes');
+        }
+        
+        async function loadCategorias() {
+            const data = await apiCall('/categorias');
+            displayData(data, 'Categorías');
+        }
+        
+        async function loadEstadisticas() {
+            const data = await apiCall('/estadisticas');
+            displayData(data, 'Estadísticas del Sistema');
+        }
+        
+        // Cargar información de la API al inicio
+        window.addEventListener('DOMContentLoaded', async () => {
+            const apiInfo = await apiCall('/');
+            if (apiInfo.success) {
+                console.log('API conectada correctamente:', apiInfo.data);
+            }
+        });
+    </script>
+</body>
+</html>
